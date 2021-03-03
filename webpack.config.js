@@ -6,7 +6,10 @@ module.exports = {
     // contentBase: path.join(__dirname, 'dist'),
     // compress: true,
     // port: 8080,
-    publicPath: 'http://localhost:8080/build/',
+    publicPath: '/build/',
+    proxy: {
+      '/': 'http://localhost:3000',
+    },
   },
   output: {
     path: path.resolve(__dirname, './build'),
