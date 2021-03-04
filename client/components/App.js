@@ -72,16 +72,33 @@ export default class App extends Component {
     console.log('current query:', text)
     const wordsArray = text.split(' ')
     console.log(wordsArray)
+
+    let newCards = this.state.cards
     
-    let newCards = this.state.cards.filter(card => {
-      const regex = new RegExp(text, 'i')
-      return (regex.test(card.name) ||
-              regex.test(card.descriptionRaw) ||
-              regex.test(card.type) ||
-              regex.test(card.subtype) ||
-              regex.test(card.region) ||
-              regex.test(...card.keywords))
+    wordsArray.forEach(word => {
+      const subArr = newCards.filter(card => {
+        const regex = new RegExp(word, 'i')
+        return (regex.test(card.name) ||
+                regex.test(card.descriptionRaw) ||
+                regex.test(card.type) ||
+                regex.test(card.subtype) ||
+                regex.test(card.region) ||
+                regex.test(...card.keywords) 
+                )
+      })
+      newCards = subArr
     })
+
+
+    // let newCards = this.state.cards.filter(card => {
+    //   const regex = new RegExp(text, 'i')
+    //   return (regex.test(card.name) ||
+    //           regex.test(card.descriptionRaw) ||
+    //           regex.test(card.type) ||
+    //           regex.test(card.subtype) ||
+    //           regex.test(card.region) ||
+    //           regex.test(...card.keywords))
+    // })
     return newCards
   }
 
