@@ -69,6 +69,9 @@ export default class App extends Component {
   }
 
   filterCards(text) {
+    console.log('current query:', text)
+    const wordsArray = text.split(' ')
+    console.log(wordsArray)
     
     let newCards = this.state.cards.filter(card => {
       const regex = new RegExp(text, 'i')
@@ -76,7 +79,8 @@ export default class App extends Component {
               regex.test(card.descriptionRaw) ||
               regex.test(card.type) ||
               regex.test(card.subtype) ||
-              regex.test(card.region))
+              regex.test(card.region) ||
+              regex.test(...card.keywords))
     })
     return newCards
   }

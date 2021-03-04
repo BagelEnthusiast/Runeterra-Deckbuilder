@@ -1,3 +1,7 @@
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
+$darkpurple: rgb(119, 2, 214);
+
 body {
   background-color: rgb(210, 186, 255);
 }
@@ -14,6 +18,23 @@ body {
   // justify-content: space-between;
 }
 
+.big-image {
+  width: 1245px;
+  height: 622px;
+}
+
+.card-info-div {
+  color: $darkpurple;
+  font-family: Inter;
+  padding: 10px;
+}
+
+#inspector-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 #search-box {
   border-radius: 9px;
   width: 100%;
@@ -21,9 +42,8 @@ body {
   padding: 8px 14px;
   border-width: 1px;
   color: white;
-  background-color: rgb(119, 2, 214);
+  background-color: $darkpurple;
   border-color:rgb(119, 2, 214)
-  
 }
 
 #search-container {
@@ -34,3 +54,4 @@ body {
   color: white;
   opacity: 1;
 }
+
