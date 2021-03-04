@@ -83,7 +83,8 @@ export default class App extends Component {
                 regex.test(card.type) ||
                 regex.test(card.subtype) ||
                 regex.test(card.region) ||
-                regex.test(...card.keywords) 
+                regex.test(...card.keywords) ||
+                regex.test(card.cost)
                 )
       })
       newCards = subArr
