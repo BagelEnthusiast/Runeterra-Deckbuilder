@@ -1,8 +1,14 @@
+body {
+  background-color: rgb(210, 186, 255);
+}
+
+
 .card-container {
-  border: 2px solid red;
+  
 }
 
 .card {
+  padding: 8px;
   display: inline-flex;
   // display: inline-flex;
   // justify-content: space-between;
@@ -14,4 +20,17 @@
   font-size: 18px;
   padding: 8px 14px;
   border-width: 1px;
+  color: white;
+  background-color: rgb(119, 2, 214);
+  border-color:rgb(119, 2, 214)
+  
+}
+
+#search-container {
+  padding: 15px
+}
+
+::placeholder {
+  color: white;
+  opacity: 1;
 }

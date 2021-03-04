@@ -42,7 +42,7 @@ export default class App extends Component {
 
   handleCardClick(e) {
     const targetCard = this.findCard(e.target.id)
-    console.log('inspected card', targetCard)
+    
     this.setState({...this.state, inspectorMode: true, inspectedCard: targetCard})
   }
 
@@ -82,8 +82,7 @@ export default class App extends Component {
   }
 
   render() {
-    console.log('I am rendered :D')
-    console.log('inspector mode is: ', this.state.inspectorMode)
+  
     if (!this.state.inspectorMode) {
       return (
         <div>
