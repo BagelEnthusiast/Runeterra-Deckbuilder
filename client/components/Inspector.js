@@ -4,7 +4,7 @@ export default class Inspector extends Component {
   render() {
     return (
       <div>
-        Hi, I'm an Inspector
+        <img src={`${this.props.data.assets[0].fullAbsolutePath}`}></img>
       </div>
     )
   }

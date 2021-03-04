@@ -43,7 +43,7 @@ export default class App extends Component {
   handleCardClick(e) {
     const targetCard = this.findCard(e.target.id)
     console.log('inspected card', targetCard)
-    this.setState({...this.state, inspectedCard: targetCard})
+    this.setState({...this.state, inspectorMode: true, inspectedCard: targetCard})
   }
 
   handleKeyPress(e) {
@@ -52,6 +52,10 @@ export default class App extends Component {
     const newText = e.target.value
 
     this.setState({...this.state, searchText: newText})
+    
+    if (this.state.inspectorMode === true) {
+      return this.setState({...this.state, inspectorMode: false})
+    }
     
     if (newText.length < oldText.length) return this.getCards()
     
@@ -78,6 +82,8 @@ export default class App extends Component {
   }
 
   render() {
+    console.log('I am rendered :D')
+    console.log('inspector mode is: ', this.state.inspectorMode)
     if (!this.state.inspectorMode) {
       return (
         <div>
@@ -98,7 +104,7 @@ export default class App extends Component {
             searchText={this.state.searchText}
           />
           <div id="inspector-body">
-            <Inspector card={this.state.inspectedCard}/>
+            <Inspector data={this.state.inspectedCard}/>
           </div>
         </div>
       )
