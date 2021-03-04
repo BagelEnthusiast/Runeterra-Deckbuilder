@@ -3,9 +3,6 @@ const path = require('path');
 module.exports = {
   entry: './client/index.js',
   devServer: {
-    // contentBase: path.join(__dirname, 'dist'),
-    // compress: true,
-    // port: 8080,
     publicPath: '/build/',
     proxy: {
       '/': 'http://localhost:3000',

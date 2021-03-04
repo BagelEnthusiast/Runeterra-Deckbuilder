@@ -1,7 +1,17 @@
-#card-container {
-  display: flex;
+.card-container {
+  border: 2px solid red;
 }
 
-#card {
-  display: inline-block;
+.card {
+  display: inline-flex;
+  // display: inline-flex;
+  // justify-content: space-between;
+}
+
+#search-box {
+  border-radius: 9px;
+  width: 100%;
+  font-size: 18px;
+  padding: 8px 14px;
+  border-width: 1px;
 }

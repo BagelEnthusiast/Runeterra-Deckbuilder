@@ -3,31 +3,106 @@ import fetch from 'isomorphic-fetch';
 import SearchBarContainer from './SearchBarContainer';
 import CardsContainer from './CardsContainer';
 import styles from '../scss/application.scss';
+import Inspector from './Inspector';
 
 export default class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      cards: []
+      cards: [],
+      filteredCards: [],
+      searchText: '',
+      inspectorMode: false,
+      inspectedCard: {}
     }
+    this.filterCards = this.filterCards.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleCardClick = this.handleCardClick.bind(this)
   }
 
   componentDidMount() {
+    this.getCards()
+  }
+
+  getCards() {
+    
     fetch('/cards')
-      .then(response => response.json())
-      .then(data => this.setState({cards: data}))
+    .then(response => response.json())
+    .then(data => {
+      // console.log(this.state.searchText)
+      if (this.state.searchText === '') {
+        this.setState({...this.state, filteredCards: data, cards: data})
+      } else {
+        this.setState({...this.state, cards: this.findCard(this.state.searchText)})
+      }
+
+    })
+  }
+
+  handleCardClick(e) {
+    const targetCard = this.findCard(e.target.id)
+    console.log('inspected card', targetCard)
+    this.setState({...this.state, inspectedCard: targetCard})
+  }
+
+  handleKeyPress(e) {
+    
+    const oldText = this.state.searchText
+    const newText = e.target.value
+
+    this.setState({...this.state, searchText: newText})
+    
+    if (newText.length < oldText.length) return this.getCards()
+    
+    const newCards = this.filterCards(newText)
+
+    this.setState({...this.state, filteredCards: newCards})
+  }
+
+  findCard(id) {
+    return this.state.filteredCards.find(card => card.cardCode === id)
+  }
+
+  filterCards(text) {
+    
+    let newCards = this.state.cards.filter(card => {
+      const regex = new RegExp(text, 'i')
+      return (regex.test(card.name) ||
+              regex.test(card.descriptionRaw) ||
+              regex.test(card.type) ||
+              regex.test(card.subtype) ||
+              regex.test(card.region))
+    })
+    return newCards
   }
 
   render() {
-    return (
-      <div>
-        <SearchBarContainer/>
-          <div id="card-container">
-            <CardsContainer cards={this.state.cards}/>
+    if (!this.state.inspectorMode) {
+      return (
+        <div>
+          <SearchBarContainer 
+            handleKeyPress={this.handleKeyPress}
+            searchText={this.state.searchText}
+          />
+            <div className="card-container">
+              <CardsContainer handleCardClick={this.handleCardClick} cards={this.state.filteredCards}/>
+            </div>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <SearchBarContainer 
+            handleKeyPress={this.handleKeyPress}
+            searchText={this.state.searchText}
+          />
+          <div id="inspector-body">
+            <Inspector card={this.state.inspectedCard}/>
           </div>
-      </div>
-    )
+        </div>
+      )
+    }
   }
 
 }

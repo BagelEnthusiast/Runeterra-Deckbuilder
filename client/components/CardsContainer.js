@@ -4,9 +4,12 @@ import Card from './Card';
 export default class CardsContainer extends Component {
   render() {
     const cardComponents = [];
-    console.log(this.props.cards)
     this.props.cards.forEach((card, index) => {
-      cardComponents.push(<Card key={index} data={card}/>)
+      cardComponents.push(<Card
+                            key={index}
+                            data={card}
+                            onClick={this.props.handleCardClick}
+                          />)
     })
     return (
       <div>
